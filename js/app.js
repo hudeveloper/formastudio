@@ -11,6 +11,7 @@
     renderCatalogGrid();
     attachEventListeners();
     initSearch();
+    initNavbarPills();
     updateVariant(0, false);
   });
 
@@ -502,6 +503,165 @@
         }
       });
     }
+  }
+
+  // Initialize Animated Navbar Sliding Pill Indicator & Scrollspy
+  function initNavbarPills() {
+    const leftNav = document.getElementById('navLeftLinks');
+    const rightNav = document.getElementById('navRightLinks');
+    const leftPill = document.getElementById('navLeftPill');
+    const rightPill = document.getElementById('navRightPill');
+    const navLinks = Array.from(document.querySelectorAll('.nav-pill-link'));
+
+    if (!navLinks.length) return;
+
+    let activeLink = navLinks[0];
+    let isManualClick = false;
+    let manualClickTimer = null;
+
+    function positionPill(targetLink, animate = true) {
+      if (!targetLink) return;
+      activeLink = targetLink;
+
+      // Update active text styles across all links
+      navLinks.forEach(link => {
+        if (link === targetLink) {
+          link.classList.add('text-slate-900', 'font-semibold', 'active-pill');
+          link.classList.remove('text-white/80', 'font-medium');
+        } else {
+          link.classList.remove('text-slate-900', 'font-semibold', 'active-pill');
+          link.classList.add('text-white/80', 'font-medium');
+        }
+      });
+
+      const isLeft = leftNav && leftNav.contains(targetLink);
+
+      if (isLeft && leftPill) {
+        if (!animate) {
+          leftPill.style.transition = 'none';
+        }
+        leftPill.style.opacity = '1';
+        leftPill.style.left = `${targetLink.offsetLeft}px`;
+        leftPill.style.top = `${targetLink.offsetTop}px`;
+        leftPill.style.width = `${targetLink.offsetWidth}px`;
+        leftPill.style.height = `${targetLink.offsetHeight}px`;
+
+        if (!animate) {
+          leftPill.offsetHeight; // Force reflow
+          leftPill.style.transition = '';
+        }
+
+        if (rightPill) rightPill.style.opacity = '0';
+      } else if (rightPill) {
+        if (!animate) {
+          rightPill.style.transition = 'none';
+        }
+        rightPill.style.opacity = '1';
+        rightPill.style.left = `${targetLink.offsetLeft}px`;
+        rightPill.style.top = `${targetLink.offsetTop}px`;
+        rightPill.style.width = `${targetLink.offsetWidth}px`;
+        rightPill.style.height = `${targetLink.offsetHeight}px`;
+
+        if (!animate) {
+          rightPill.offsetHeight; // Force reflow
+          rightPill.style.transition = '';
+        }
+
+        if (leftPill) leftPill.style.opacity = '0';
+      }
+    }
+
+    // Click handler on links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetEl = document.getElementById(targetId);
+
+          isManualClick = true;
+          clearTimeout(manualClickTimer);
+          manualClickTimer = setTimeout(() => {
+            isManualClick = false;
+          }, 900);
+
+          positionPill(link, true);
+
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    // Sections order for scrollspy
+    const sectionIds = ['home', 'collectionSection', 'about', 'team', 'faqs'];
+
+    function handleScrollspy() {
+      if (isManualClick) return;
+
+      const scrollY = window.scrollY;
+
+      // Top of page: home
+      if (scrollY < 180) {
+        const homeLink = navLinks.find(l => l.getAttribute('href') === '#home');
+        if (homeLink && homeLink !== activeLink) {
+          positionPill(homeLink, true);
+        }
+        return;
+      }
+
+      // Bottom of page: faqs
+      if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 60)) {
+        const faqsLink = navLinks.find(l => l.getAttribute('href') === '#faqs');
+        if (faqsLink && faqsLink !== activeLink) {
+          positionPill(faqsLink, true);
+        }
+        return;
+      }
+
+      // Find visible section
+      let currentSectionId = null;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 260) {
+            currentSectionId = id;
+            break;
+          }
+        }
+      }
+
+      if (currentSectionId) {
+        const targetLink = navLinks.find(l => l.getAttribute('href') === `#${currentSectionId}`);
+        if (targetLink && targetLink !== activeLink) {
+          positionPill(targetLink, true);
+        }
+      }
+    }
+
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          handleScrollspy();
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      positionPill(activeLink, false);
+    });
+
+    // Initial setup with fallbacks for font rendering
+    positionPill(activeLink, false);
+    setTimeout(() => positionPill(activeLink, false), 60);
+    setTimeout(() => positionPill(activeLink, false), 250);
   }
 
   // Render the 8-chair catalog grid below the fold

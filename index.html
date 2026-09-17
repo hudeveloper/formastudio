@@ -40,26 +40,34 @@
       <!-- TOP NAVIGATION BAR (Sticky / Fixed) -->
       <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 w-full pt-5 px-8 md:px-12 flex items-center justify-between transition-all duration-300">
         <!-- Left Nav Links -->
-        <nav class="flex items-center gap-6 md:gap-8">
-          <a href="#home" class="bg-white text-slate-900 px-6 py-2 rounded-full font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all">
+        <nav id="navLeftLinks" class="relative flex items-center gap-1 md:gap-2">
+          <!-- Animated Sliding White Pill Indicator -->
+          <div id="navLeftPill" class="nav-sliding-pill"></div>
+
+          <a href="#home" class="nav-pill-link active-pill px-4 md:px-6 py-2 rounded-full font-semibold text-xs tracking-wide text-slate-900">
             home
           </a>
-          <a href="#about" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
+          <a href="#about" class="nav-pill-link px-4 md:px-5 py-2 rounded-full font-medium text-xs tracking-wide text-white/80">
             about us
           </a>
-          <a href="#faqs" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
+          <a href="#faqs" class="nav-pill-link px-4 md:px-5 py-2 rounded-full font-medium text-xs tracking-wide text-white/80">
             faqs
           </a>
         </nav>
 
         <!-- Right Nav Links & Actions -->
-        <div class="flex items-center gap-5 md:gap-7">
-          <a href="#collectionSection" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
-            products
-          </a>
-          <a href="#team" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
-            team
-          </a>
+        <div class="flex items-center gap-4 md:gap-6">
+          <div id="navRightLinks" class="relative flex items-center gap-1 md:gap-2">
+            <!-- Animated Sliding White Pill Indicator for Right Group -->
+            <div id="navRightPill" class="nav-sliding-pill opacity-0"></div>
+
+            <a href="#collectionSection" class="nav-pill-link px-4 md:px-5 py-2 rounded-full font-medium text-xs tracking-wide text-white/80">
+              products
+            </a>
+            <a href="#team" class="nav-pill-link px-4 md:px-5 py-2 rounded-full font-medium text-xs tracking-wide text-white/80">
+              team
+            </a>
+          </div>
 
           <!-- Search Icon Button -->
           <button id="searchNavBtn" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-all cursor-pointer" title="Search Collections & Specs (Ctrl+K)">
@@ -69,13 +77,10 @@
           </button>
 
           <!-- Shopping Bag / Cart Icon Button -->
-          <button id="navCartBtn" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-all relative cursor-pointer" title="Shopping Bag (1 Item)">
+          <button id="navCartBtn" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-all relative cursor-pointer" title="Shopping Bag">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
             </svg>
-            <span id="cartCountBadge" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center shadow-md">
-              1
-            </span>
           </button>
 
           <!-- Contact Pill Button with Phone Icon Badge -->
@@ -93,7 +98,7 @@
       <!-- GIGANTIC 3D TYPOGRAPHY: for [studio] ma -->
       <div class="hero-typography-container">
         <span class="hero-big-text">for</span>
-        <span class="hero-sub-text">studio</span>
+        <span class="hero-sub-text">studio.</span>
         <span class="hero-big-text">ma</span>
       </div>
 

@@ -173,7 +173,7 @@ body {
 }
 
 .hero-big-text {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Hanken Grotesk', sans-serif;
   font-weight: 900;
   font-size: clamp(7.5rem, 19vw, 18.5rem);
   letter-spacing: -0.06em;
@@ -181,6 +181,10 @@ body {
   color: #ffffff;
   opacity: 0.98;
   text-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+
+.hero-big-text:last-child {
+  transform: translateX(20px);
 }
 
 @media (min-width: 900px) {
@@ -194,7 +198,7 @@ body {
   }
 
   .hero-big-text:last-child {
-    transform: translate(-11vw, -165px);
+    transform: translate(-8.2vw, -165px);
   }
 }
 
@@ -227,7 +231,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -46%);
+  transform: translate(-50%, -46%) scale(1, 0.94);
   width: min(88vw, 540px);
   height: min(88vw, 540px);
   z-index: 20;
@@ -240,7 +244,7 @@ body {
   .chair-center-stage {
     width: 800px;
     height: 680px;
-    transform: translate(-50%, -36%);
+    transform: translate(-50%, -36%) scale(1, 0.94);
   }
 }
 
@@ -526,6 +530,47 @@ body {
   padding-bottom: 14px;
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.35);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Luxury Animated Navbar Sliding Pill Indicator */
+.nav-sliding-pill {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              top 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              height 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.22s ease;
+}
+
+.nav-pill-link {
+  position: relative;
+  z-index: 2;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-pill-link:hover {
+  color: #ffffff;
+}
+
+/* When active with the white sliding pill behind it: ALWAYS stay dark slate on hover! */
+.nav-pill-link.active-pill,
+.nav-pill-link.active-pill:hover,
+.nav-pill-link.text-slate-900,
+.nav-pill-link.text-slate-900:hover {
+  color: #0f172a !important;
+  font-weight: 600;
 }
 
 /* Luxury Smooth Modal System */
