@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Bespoke Selection — forma studio</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <style>
+    @keyframes cartPageEnter {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    body {
+      animation: cartPageEnter 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Luxury Order Confirmation Pop Animation */
+    @keyframes modalPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+      }
+      65% {
+        opacity: 1;
+        transform: scale(1.03) translateY(-4px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    .modal-pop-in {
+      animation: modalPopIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    /* SVG Stroke Draw Checkmark */
+    .check-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: strokeCircle 0.65s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    .check-tick {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: strokeTick 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
+    }
+    @keyframes strokeCircle {
+      100% { stroke-dashoffset: 0; }
+    }
+    @keyframes strokeTick {
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* Glowing Ripple Rings */
+    @keyframes glowPulse {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.4);
+        opacity: 0;
+      }
+    }
+    .glow-ripple {
+      animation: glowPulse 2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-900 selection:bg-blue-600 selection:text-white min-h-screen flex flex-col justify-between">
+
+  <!-- TOP BRAND & RETURN HEADER -->
+  <header class="bg-white border-b border-slate-200/80 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="./index.html" class="flex items-center gap-2 group">
+        <span class="font-extrabold text-lg md:text-xl tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors font-['Outfit']">
+          forma studio
+        </span>
+        <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400 bg-slate-100 px-2 py-0.5 rounded-md">
+          Checkout
+        </span>
+      </a>
+
+      <!-- Progress Indicators (Desktop) -->
+      <div class="hidden md:flex items-center gap-3 text-xs">
+        <span class="font-bold text-blue-600 flex items-center gap-1.5">
+          <span class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]">1</span>
+          Selection
+        </span>
+        <span class="text-slate-300">→</span>
+        <span class="font-medium text-slate-500 flex items-center gap-1.5">
+          <span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[10px]">2</span>
+          White-Glove Delivery
+        </span>
+        <span class="text-slate-300">→</span>
+        <span class="font-medium text-slate-400 flex items-center gap-1.5">
+          <span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-[10px]">3</span>
+          Confirmation
+        </span>
+      </div>
+
+      <!-- Return to 3D Link & Concierge -->
+      <div class="flex items-center gap-4">
+        <a href="tel:+390287391200" class="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-900 font-medium transition-colors">
+          <span>📞</span>
+          <span>Concierge (+39 02 8739 1200)</span>
+        </a>
+        <a id="backToHomeBtn" href="./index.html" class="bg-slate-900 hover:bg-blue-600 text-white font-semibold text-xs px-4 py-2 rounded-full transition-colors flex items-center gap-1.5 shadow-sm">
+          <span>←</span>
+          <span>Back to 3D Stage</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CART WORKSPACE -->
+  <main class="max-w-7xl mx-auto w-full px-6 md:px-12 py-10 md:py-14 flex-1">
+
+    <!-- Page Title -->
+    <div class="mb-10">
+      <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1.5">Curated Selection</span>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Your Bespoke Armchair Order
+      </h1>
+      <p class="text-xs md:text-sm text-slate-500 mt-1">
+        Handcrafted to order with complimentary white-glove room assembly and 10-year structural warranty.
+      </p>
+    </div>
+
+    <!-- 2-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+
+      <!-- LEFT COLUMN: Chair Details & Colorway Switcher -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- Selected Armchair Card -->
+        <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm relative overflow-hidden">
+          
+          <div class="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+            
+            <!-- Large Product Image Showcase with Dynamic Gradient -->
+            <div id="cartChairImgWrap" class="w-full sm:w-52 aspect-square rounded-2xl p-4 flex items-center justify-center relative border border-slate-100 shadow-inner shrink-0 transition-all duration-500" style="background: radial-gradient(ellipse at 50% 50%, #205cd4 0%, #1545ad 45%, #0c2d78 100%);">
+              <img id="cartChairImg" src="./Images/Gemini_Generated_Image_wor6mawor6mawor6.png" alt="Velvet Sapphire" class="w-full h-full object-contain drop-shadow-2xl transition-all duration-300" />
+              <span id="cartStockBadge" class="absolute top-3 right-3 text-[10px] font-bold text-emerald-700 bg-emerald-100/90 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-emerald-300/40">
+                In Stock
+              </span>
+            </div>
+
+            <!-- Product Meta -->
+            <div class="flex-1 min-w-0 w-full">
+              <div class="flex items-start justify-between gap-4 mb-2">
+                <div>
+                  <span id="cartChairCategory" class="text-[11px] font-bold uppercase tracking-widest text-blue-600 block">
+                    Sculptural Lounge Armchair
+                  </span>
+                  <h2 id="cartChairName" class="text-2xl font-bold text-slate-900 tracking-tight">
+                    Velvet Sapphire
+                  </h2>
+                </div>
+                <span id="cartChairUnitPrice" class="text-2xl font-extrabold text-slate-900">
+                  $1,450
+                </span>
+              </div>
+
+              <p id="cartChairDesc" class="text-xs text-slate-500 leading-relaxed mb-5">
+                Deep oceanic royal velvet with iridescent micro-sheen. Sourced from Como, Italy. Continuous radius horseshoe arch frame.
+              </p>
+
+              <!-- Technical Specs Pills -->
+              <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Dimensions</span>
+                  <span class="font-bold text-slate-800">84 × 82 × 78 cm</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Frame Material</span>
+                  <span class="font-bold text-slate-800">Nordic Ash Hardwood</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Upholstery</span>
+                  <span class="font-bold text-slate-800">Italian Velvet (Nano-Shield)</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Warranty</span>
+                  <span class="font-bold text-emerald-600">10-Year Guarantee</span>
+                </div>
+              </div>
+
+              <!-- Quantity Controls -->
+              <div class="flex items-center justify-between pt-4 border-t border-slate-100">
+                <span class="text-xs font-semibold text-slate-700">Quantity</span>
+                <div class="flex items-center border border-slate-200 rounded-xl bg-white shadow-sm overflow-hidden">
+                  <button id="qtyMinusBtn" class="px-3.5 py-1.5 hover:bg-slate-100 text-slate-600 font-bold transition-colors">
+                    −
+                  </button>
+                  <span id="qtyDisplay" class="px-4 text-xs font-bold text-slate-900 min-w-[28px] text-center">
+                    1
+                  </span>
+                  <button id="qtyPlusBtn" class="px-3.5 py-1.5 hover:bg-slate-100 text-slate-600 font-bold transition-colors">
+                    +
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Palette Switcher Directly on Cart Page -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-bold text-sm text-slate-900">Switch Palette Shade</h3>
+              <p class="text-xs text-slate-500">Explore all 8 available architectural finishes.</p>
+            </div>
+            <span id="currentShadeLabel" class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+              Velvet Sapphire
+            </span>
+          </div>
+
+          <div id="cartColorSwatches" class="grid grid-cols-4 sm:grid-cols-8 gap-3">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+
+        <!-- Complimentary Add-on & Guarantees -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm space-y-4">
+          <label class="flex items-start gap-3.5 cursor-pointer select-none">
+            <input id="swatchBoxCheckbox" type="checkbox" checked class="mt-0.5 w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" />
+            <div>
+              <span class="font-bold text-xs text-slate-900 block">Include Complimentary Physical Swatch Box</span>
+              <span class="text-[11px] text-slate-500 block leading-relaxed">
+                Receive large physical fabric cuts of all 8 velvet shades within 48 hours for home evaluation. ($0)
+              </span>
+            </div>
+          </label>
+
+          <hr class="border-slate-100" />
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1 text-xs">
+            <div class="flex items-center gap-2 text-slate-600">
+              <span class="text-blue-600 text-base">✦</span>
+              <span>White-Glove Room Delivery Included</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-600">
+              <span class="text-emerald-600 text-base">🌲</span>
+              <span>100% Carbon Neutral Shipping</span>
+            </div>
+            <div class="flex items-center gap-2 text-slate-600">
+              <span class="text-amber-600 text-base">🛡️</span>
+              <span>30-Day Risk-Free Trial</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Order Summary & White-Glove Details -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- Order Summary Card -->
+        <div class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 shadow-sm">
+          <h3 class="font-bold text-slate-900 text-base mb-5 pb-4 border-b border-slate-100">
+            Order Summary
+          </h3>
+
+          <!-- Promo Code Input -->
+          <div class="mb-6">
+            <div class="flex gap-2">
+              <input id="promoCodeInput" type="text" placeholder="Promo / Trade Code (e.g. FORMA10)" class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 uppercase transition-colors" />
+              <button id="applyPromoBtn" class="bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs px-4 py-2 rounded-xl transition-colors shrink-0">
+                Apply
+              </button>
+            </div>
+            <span id="promoStatusMsg" class="text-[11px] mt-1.5 block font-semibold hidden"></span>
+          </div>
+
+          <!-- Price Calculations -->
+          <div class="space-y-3 text-xs pb-5 border-b border-slate-100 text-slate-600">
+            <div class="flex justify-between">
+              <span>Item Subtotal</span>
+              <span id="summarySubtotal" class="font-bold text-slate-900">$1,450</span>
+            </div>
+            <div id="discountRow" class="flex justify-between text-emerald-600 font-semibold hidden">
+              <span>Trade Discount (10%)</span>
+              <span id="summaryDiscount">-$145</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Global White-Glove Logistics</span>
+              <span class="font-bold text-emerald-600">COMPLIMENTARY ($0)</span>
+            </div>
+            <div class="flex justify-between">
+              <span>FSC Conservation Planting (3 Trees)</span>
+              <span class="font-bold text-emerald-600">FREE ($0)</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Estimated Tax / VAT</span>
+              <span class="text-slate-400">Included in Price</span>
+            </div>
+          </div>
+
+          <!-- Total -->
+          <div class="flex items-center justify-between pt-5 mb-6">
+            <div>
+              <span class="font-bold text-slate-900 text-sm block">Total Due</span>
+              <span class="text-[11px] text-slate-400">White-glove delivery guaranteed</span>
+            </div>
+            <span id="summaryTotal" class="text-2xl font-extrabold text-blue-600">
+              $1,450
+            </span>
+          </div>
+
+          <!-- White-Glove Shipping & Contact Form -->
+          <form id="checkoutForm" class="space-y-3.5">
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                Recipient Details
+              </label>
+              <input id="orderName" type="text" required placeholder="Full Name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input id="orderEmail" type="email" required placeholder="Email Address" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+              <input id="orderPhone" type="tel" required placeholder="Mobile for White-Glove Team" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                Delivery Address
+              </label>
+              <input id="orderAddress" type="text" required placeholder="Street Address (Apartment, Suite)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <input id="orderCity" type="text" required placeholder="City" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+              <input id="orderPostal" type="text" required placeholder="Postal Code" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+            </div>
+
+            <button type="submit" class="w-full mt-2 py-4 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-widest transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-2">
+              <span>COMPLETE BESPOKE ORDER</span>
+              <span>→</span>
+            </button>
+          </form>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-center gap-4 text-[10px] text-slate-400">
+            <span>🔒 256-Bit SSL Encrypted</span>
+            <span>•</span>
+            <span>🛡️ 100% In-Home Trial</span>
+            <span>•</span>
+            <span>✈️ Global White-Glove</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- CELEBRATION CONFETTI CANVAS -->
+  <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50 hidden"></canvas>
+
+  <!-- SUCCESS CONFIRMATION MODAL -->
+  <div id="orderSuccessModal" class="fixed inset-0 bg-slate-950/75 backdrop-blur-md z-50 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="modal-pop-in bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 md:p-7 shadow-2xl text-center border border-slate-100 relative my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- Top Ambient Glow Aura -->
+      <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-56 h-28 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+      <!-- Animated Checkmark with Glowing Rings -->
+      <div class="relative w-14 h-14 mx-auto mb-3 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-emerald-500/20 glow-ripple"></div>
+        <div class="absolute inset-1.5 rounded-full bg-emerald-500/10"></div>
+        <div class="relative w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30">
+          <svg class="w-6 h-6" viewBox="0 0 52 52">
+            <circle class="check-circle" cx="26" cy="26" r="23" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path class="check-tick" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" d="M14 27l8 8 16-16"/>
+          </svg>
+        </div>
+      </div>
+
+      <span class="text-[11px] font-bold text-emerald-600 uppercase tracking-widest block mb-1">
+        ✦ Bespoke Order Confirmed ✦
+      </span>
+      <h3 class="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight mb-1.5">
+        Thank You For Your Curation
+      </h3>
+      <p class="text-[11px] md:text-xs text-slate-500 mb-4 leading-relaxed max-w-sm mx-auto">
+        Your armchair has been registered into handcrafted production at our European atelier. A dedicated white-glove concierge will coordinate personalized in-room delivery.
+      </p>
+
+      <!-- VIP Atelier Production Tracker -->
+      <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-3 md:p-3.5 text-white text-xs mb-3.5 text-left relative overflow-hidden shadow-inner border border-slate-700/50">
+        <div class="flex items-center justify-between mb-2.5 text-[11px]">
+          <span class="font-bold text-white flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            Atelier Journey Status
+          </span>
+          <span class="text-blue-400 font-semibold text-[10px]">Stage 1 of 3 (Active)</span>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-1.5 text-center text-[10px]">
+          <div class="p-1.5 rounded-xl bg-blue-600/30 border border-blue-400/40 text-white font-bold">
+            <div class="text-blue-300 text-[10px] mb-0.5">✦ Active</div>
+            Atelier Finishing
+          </div>
+          <div class="p-1.5 rounded-xl bg-slate-800/80 border border-slate-700/40 text-slate-400">
+            <div class="text-slate-500 text-[10px] mb-0.5">Step 2</div>
+            White-Glove Crated
+          </div>
+          <div class="p-1.5 rounded-xl bg-slate-800/80 border border-slate-700/40 text-slate-400">
+            <div class="text-slate-500 text-[10px] mb-0.5">Step 3</div>
+            Room Installation
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Receipt Breakdown -->
+      <div class="bg-slate-50 rounded-2xl p-3 md:p-3.5 text-left text-xs mb-4 space-y-2 border border-slate-100">
+        <div class="flex justify-between text-slate-600 text-[11px]">
+          <span>Order Reference:</span>
+          <span id="orderRefNum" class="font-bold text-slate-900 font-mono tracking-wider">#FS-89241</span>
+        </div>
+        <div class="flex justify-between text-slate-600 text-[11px]">
+          <span>Curated Model:</span>
+          <span id="orderSuccessPiece" class="font-bold text-slate-900">Velvet Sapphire</span>
+        </div>
+        <div class="flex justify-between text-slate-600 text-[11px]">
+          <span>Investment Total:</span>
+          <span id="orderSuccessTotal" class="font-extrabold text-blue-600 text-sm">$1,450</span>
+        </div>
+        <div class="flex justify-between text-slate-600 text-[11px]">
+          <span>White-Glove Delivery:</span>
+          <span class="font-bold text-emerald-600">Complimentary ($0)</span>
+        </div>
+        <div class="flex justify-between text-slate-600 text-[11px]">
+          <span>Frame Warranty:</span>
+          <span class="font-bold text-slate-800">10-Year Comprehensive Certificate</span>
+        </div>
+      </div>
+
+      <a id="successHomeBtn" href="./index.html" class="w-full py-3 md:py-3.5 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-widest transition-all inline-flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl">
+        <span>RETURN TO FORMA STUDIO STAGE</span>
+        <span>→</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 py-6 px-6 md:px-12 bg-white text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div>forma studio — Milan / Copenhagen / Tokyo</div>
+    <div>© 2026 forma studio All rights reserved. Handcrafted luxury furniture.</div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./js/chair-data.js"></script>
+  <script>
+    (function() {
+      const chairVariants = window.chairVariants || [];
+      
+      // Read variant from URL query or localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const variantParam = urlParams.get('variant') || localStorage.getItem('forma_selected_variant') || 'sapphire';
+      let activeIndex = chairVariants.findIndex(c => c.id.toLowerCase() === variantParam.toLowerCase());
+      if (activeIndex === -1) activeIndex = 0;
+
+      let quantity = parseInt(urlParams.get('qty') || localStorage.getItem('forma_selected_qty') || '1', 10);
+      if (isNaN(quantity) || quantity < 1) quantity = 1;
+
+      let discountPercent = 0;
+
+      document.addEventListener('DOMContentLoaded', () => {
+        renderColorSwatches();
+        updateCartDisplay();
+        attachCartListeners();
+      });
+
+      function renderColorSwatches() {
+        const container = document.getElementById('cartColorSwatches');
+        if (!container) return;
+        container.innerHTML = '';
+
+        chairVariants.forEach((chair, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `w-full aspect-square rounded-xl p-1 border-2 transition-all flex items-center justify-center relative ${idx === activeIndex ? 'border-blue-600 scale-105 shadow-md' : 'border-slate-200 hover:border-slate-400'}`;
+          btn.style.backgroundColor = chair.colorHex;
+          btn.title = chair.name;
+          btn.innerHTML = `
+            <img src="${chair.image}" alt="${chair.name}" class="w-full h-full object-contain drop-shadow-sm" />
+          `;
+
+          btn.addEventListener('click', () => {
+            activeIndex = idx;
+            localStorage.setItem('forma_selected_variant', chair.id);
+            renderColorSwatches();
+            updateCartDisplay();
+          });
+
+          container.appendChild(btn);
+        });
+      }
+
+      function updateCartDisplay() {
+        if (!chairVariants.length) return;
+        const chair = chairVariants[activeIndex];
+
+        // Update image & gradient
+        const imgWrap = document.getElementById('cartChairImgWrap');
+        const img = document.getElementById('cartChairImg');
+        if (imgWrap) imgWrap.style.background = chair.bgGradient;
+        if (img) {
+          img.src = chair.image;
+          img.alt = chair.name;
+        }
+
+        // Update titles & labels
+        document.getElementById('cartChairName').textContent = chair.name;
+        document.getElementById('cartChairDesc').textContent = chair.description;
+        document.getElementById('currentShadeLabel').textContent = chair.name;
+        document.getElementById('currentShadeLabel').style.backgroundColor = `${chair.colorHex}15`;
+        document.getElementById('currentShadeLabel').style.color = chair.colorHex;
+
+        // Pricing calculation
+        const unitPrice = parseInt(chair.price.replace(/[^0-9]/g, ''), 10) || 1450;
+        document.getElementById('cartChairUnitPrice').textContent = chair.price;
+        document.getElementById('qtyDisplay').textContent = quantity;
+
+        const subtotal = unitPrice * quantity;
+        const discountAmount = Math.round(subtotal * (discountPercent / 100));
+        const finalTotal = subtotal - discountAmount;
+
+        document.getElementById('summarySubtotal').textContent = `$${subtotal.toLocaleString()}`;
+        document.getElementById('summaryTotal').textContent = `$${finalTotal.toLocaleString()}`;
+
+        const discountRow = document.getElementById('discountRow');
+        const summaryDiscount = document.getElementById('summaryDiscount');
+        if (discountPercent > 0) {
+          discountRow.classList.remove('hidden');
+          summaryDiscount.textContent = `-$${discountAmount.toLocaleString()}`;
+        } else {
+          discountRow.classList.add('hidden');
+        }
+
+        localStorage.setItem('forma_selected_variant', chair.id);
+        localStorage.setItem('forma_selected_qty', quantity);
+      }
+
+      function attachCartListeners() {
+        const minusBtn = document.getElementById('qtyMinusBtn');
+        const plusBtn = document.getElementById('qtyPlusBtn');
+
+        if (minusBtn) {
+          minusBtn.addEventListener('click', () => {
+            if (quantity > 1) {
+              quantity--;
+              updateCartDisplay();
+            }
+          });
+        }
+
+        if (plusBtn) {
+          plusBtn.addEventListener('click', () => {
+            if (quantity < 10) {
+              quantity++;
+              updateCartDisplay();
+            }
+          });
+        }
+
+        // Promo Code
+        const applyPromoBtn = document.getElementById('applyPromoBtn');
+        const promoInput = document.getElementById('promoCodeInput');
+        const promoMsg = document.getElementById('promoStatusMsg');
+
+        if (applyPromoBtn && promoInput) {
+          applyPromoBtn.addEventListener('click', () => {
+            const code = promoInput.value.trim().toUpperCase();
+            if (code === 'FORMA10' || code === 'MILAN10' || code === 'VIP10') {
+              discountPercent = 10;
+              promoMsg.textContent = '✓ 10% Trade / Designer discount applied!';
+              promoMsg.className = 'text-[11px] mt-1.5 block font-semibold text-emerald-600';
+              promoMsg.classList.remove('hidden');
+              updateCartDisplay();
+            } else if (!code) {
+              discountPercent = 0;
+              promoMsg.classList.add('hidden');
+              updateCartDisplay();
+            } else {
+              promoMsg.textContent = '✕ Invalid promo code. Use FORMA10 for 10% off.';
+              promoMsg.className = 'text-[11px] mt-1.5 block font-semibold text-rose-600';
+              promoMsg.classList.remove('hidden');
+            }
+          });
+        }
+
+        // Checkout Form Submit
+        const checkoutForm = document.getElementById('checkoutForm');
+        const successModal = document.getElementById('orderSuccessModal');
+
+        if (checkoutForm && successModal) {
+          checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const chair = chairVariants[activeIndex];
+            const totalText = document.getElementById('summaryTotal').textContent;
+            
+            document.getElementById('orderRefNum').textContent = `#FS-${Math.floor(10000 + Math.random() * 90000)}`;
+            document.getElementById('orderSuccessPiece').textContent = `${quantity}x ${chair.name}`;
+            document.getElementById('orderSuccessTotal').textContent = totalText;
+
+            successModal.classList.remove('hidden');
+            successModal.classList.add('flex');
+
+            // Trigger celebratory confetti burst
+            fireLuxuryConfetti();
+          });
+        }
+
+        // Trigger celebratory confetti burst
+        function fireLuxuryConfetti() {
+          const canvas = document.getElementById('confettiCanvas');
+          if (!canvas) return;
+          canvas.classList.remove('hidden');
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          const ctx = canvas.getContext('2d');
+
+          const colors = ['#f59e0b', '#fbbf24', '#2563eb', '#3b82f6', '#10b981', '#ec4899', '#ffffff'];
+          const particles = [];
+          const count = 130;
+
+          for (let i = 0; i < count; i++) {
+            particles.push({
+              x: canvas.width / 2 + (Math.random() - 0.5) * 260,
+              y: canvas.height / 2 - 90,
+              vx: (Math.random() - 0.5) * 18,
+              vy: (Math.random() - 0.85) * 20,
+              size: Math.random() * 9 + 5,
+              color: colors[Math.floor(Math.random() * colors.length)],
+              rotation: Math.random() * Math.PI * 2,
+              rotationSpeed: (Math.random() - 0.5) * 0.25,
+              opacity: 1,
+              gravity: 0.35,
+              drag: 0.96
+            });
+          }
+
+          let animId;
+          const startTime = Date.now();
+
+          function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const elapsed = Date.now() - startTime;
+
+            particles.forEach((p) => {
+              p.x += p.vx;
+              p.y += p.vy;
+              p.vy += p.gravity;
+              p.vx *= p.drag;
+              p.vy *= p.drag;
+              p.rotation += p.rotationSpeed;
+
+              if (elapsed > 2200) {
+                p.opacity = Math.max(0, p.opacity - 0.015);
+              }
+
+              ctx.save();
+              ctx.translate(p.x, p.y);
+              ctx.rotate(p.rotation);
+              ctx.globalAlpha = p.opacity;
+              ctx.fillStyle = p.color;
+              ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+              ctx.restore();
+            });
+
+            if (elapsed < 4500) {
+              animId = requestAnimationFrame(draw);
+            } else {
+              cancelAnimationFrame(animId);
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              canvas.classList.add('hidden');
+            }
+          }
+
+          draw();
+        }
+
+        // Smooth Return to 3D Stage
+        const backBtn = document.getElementById('backToHomeBtn');
+        const successHomeBtn = document.getElementById('successHomeBtn');
+
+        [backBtn, successHomeBtn].forEach((btn) => {
+          if (btn) {
+            btn.addEventListener('click', (e) => {
+              e.preventDefault();
+              document.body.style.opacity = '0';
+              document.body.style.transition = 'opacity 0.2s ease-out';
+              setTimeout(() => {
+                window.location.href = './index.html';
+              }, 190);
+            });
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+

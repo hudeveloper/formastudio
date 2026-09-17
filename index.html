@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>forma studio - Luxury 3D Designer Armchairs</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-[#f0f3f8] text-slate-900 selection:bg-blue-600 selection:text-white">
+
+  <!-- Main Viewport Frame -->
+  <div id="home" class="browser-outer-frame">
+
+    <!-- HERO CARD -->
+    <div id="heroCard" class="hero-card">
+
+      <!-- 1. TOP BRAND NOTCH (forma studio) -->
+      <div class="top-notch-brand">
+        <span class="brand-logo">forma studio</span>
+      </div>
+
+      <!-- 2. LEFT & RIGHT SLIDER NOTCHES (< and >) -->
+      <div id="prevChairBtn" class="slider-notch-left" title="Previous Variant">
+        <div class="slider-notch-arrow">‹</div>
+      </div>
+      <div id="nextChairBtn" class="slider-notch-right" title="Next Variant">
+        <div class="slider-notch-arrow">›</div>
+      </div>
+
+      <!-- 3. BOTTOM SCROLL NOTCH (↓) -->
+      <div id="bottomScrollNotch" class="bottom-notch-scroll" title="Scroll Down">
+        <span class="scroll-arrow">↓</span>
+      </div>
+
+      <!-- TOP NAVIGATION BAR (Sticky / Fixed) -->
+      <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 w-full pt-5 px-8 md:px-12 flex items-center justify-between transition-all duration-300">
+        <!-- Left Nav Links -->
+        <nav class="flex items-center gap-6 md:gap-8">
+          <a href="#home" class="bg-white text-slate-900 px-6 py-2 rounded-full font-semibold text-xs tracking-wide shadow-sm hover:shadow transition-all">
+            home
+          </a>
+          <a href="#about" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
+            about us
+          </a>
+          <a href="#faqs" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
+            faqs
+          </a>
+        </nav>
+
+        <!-- Right Nav Links & Actions -->
+        <div class="flex items-center gap-5 md:gap-7">
+          <a href="#collectionSection" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
+            products
+          </a>
+          <a href="#team" class="text-white/80 hover:text-white font-medium text-xs tracking-wide transition-colors">
+            team
+          </a>
+
+          <!-- Search Icon Button -->
+          <button id="searchNavBtn" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-all cursor-pointer" title="Search Collections & Specs (Ctrl+K)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </button>
+
+          <!-- Shopping Bag / Cart Icon Button -->
+          <button id="navCartBtn" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center text-white transition-all relative cursor-pointer" title="Shopping Bag (1 Item)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <span id="cartCountBadge" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center shadow-md">
+              1
+            </span>
+          </button>
+
+          <!-- Contact Pill Button with Phone Icon Badge -->
+          <button id="navContactBtn" class="bg-white text-slate-900 pl-4 pr-1.5 py-1 rounded-full text-xs font-semibold flex items-center gap-2 shadow-sm hover:shadow transition-all">
+            <span>Contact</span>
+            <div id="navContactPhoneBadge" class="w-6 h-6 rounded-full bg-[#153a92] text-white flex items-center justify-center transition-colors duration-300">
+              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/>
+              </svg>
+            </div>
+          </button>
+        </div>
+      </header>
+
+      <!-- GIGANTIC 3D TYPOGRAPHY: for [studio] ma -->
+      <div class="hero-typography-container">
+        <span class="hero-big-text">for</span>
+        <span class="hero-sub-text">studio</span>
+        <span class="hero-big-text">ma</span>
+      </div>
+
+      <!-- CENTER STAGE: 3D / PHOTOREALISTIC CHAIR -->
+      <div id="chairCenterStage" class="chair-center-stage">
+
+        <!-- Photorealistic Studio Render Image -->
+        <img id="chairPhoto" 
+             src="./Images/Gemini_Generated_Image_wor6mawor6mawor6.png" 
+             alt="Velvet Sapphire Chair" 
+             class="chair-photo-img" />
+
+        <!-- Three.js 3D WebGL Canvas Container (Hidden initially, active in 3D Mode) -->
+        <div id="chair3DCanvas" class="chair-canvas-container" style="display: none;"></div>
+
+        <!-- Hotspots Overlay (Only in Photo Mode) -->
+        <div id="hotspotsContainer" class="hotspots-container absolute inset-0">
+          <!-- Dynamically populated by app.js -->
+        </div>
+
+        <!-- Floating Glassmorphism Callout Tooltip (Seat Cushion) -->
+        <div id="glassCallout" class="glass-callout show" style="left: calc(67% + 18px); top: calc(61% - 10px);">
+          <p class="callout-text text-[11.5px] text-white/95 leading-relaxed">
+            Premium microfiber upholstery: durable, easy-care, and fade-resistant. Internal structural wood frame.
+          </p>
+        </div>
+      </div>
+
+      <!-- SUBTLE "Since 2015" BELOW CHAIR -->
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-[11px] font-medium tracking-wider text-white/50 pointer-events-none">
+        Since 2015
+      </div>
+
+      <!-- MAIN CONTENT GRID (Left Column & Right Column) -->
+      <div class="relative z-20 w-full px-8 md:px-12 pb-10 flex flex-col md:flex-row items-end justify-between gap-8 mt-auto">
+
+        <!-- LEFT COLUMN: Description & View All Collections CTA -->
+        <div class="max-w-sm flex flex-col items-start gap-5">
+          <p class="text-white/90 text-xs md:text-[13px] leading-relaxed font-normal">
+            We create designer chairs that don't just complement an interior – they become its main accent.<br>
+            Each piece is a masterclass in architectural form, tactile pleasure, and visual harmony.<br>
+            Handcrafted quality, sustainable materials.<br>
+            Available globally.
+          </p>
+
+          <div class="flex items-center gap-4">
+            <button id="viewAllBtn" class="bg-white text-slate-900 font-semibold px-6 py-3 rounded-full text-xs hover:bg-slate-100 hover:shadow-lg transition-all tracking-wide">
+              View All Collections
+            </button>
+
+            <!-- Mode Switcher (Studio Photo vs Real-time 3D) -->
+            <div class="mode-toggle-badge" aria-hidden="true">
+              <button id="photoModeBtn" class="mode-toggle-btn active" title="High-res Studio Render">
+                📸 Studio
+              </button>
+              <button id="threeModeBtn" class="mode-toggle-btn" title="Interactive 3D WebGL">
+                🌐 3D Orbit
+              </button>
+            </div>
+          </div>
+
+          <!-- Social Media Icons (f, Instagram, X) -->
+          <div class="flex items-center gap-2 pt-2">
+            <a href="#" class="w-8 h-8 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs font-bold shadow hover:scale-110 transition-transform" title="Facebook">
+              f
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs shadow hover:scale-110 transition-transform" title="Instagram">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+              </svg>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white text-slate-900 flex items-center justify-center text-xs shadow hover:scale-110 transition-transform" title="X (Twitter)">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Color Swatches & Consultation Card -->
+        <div class="flex flex-col items-end gap-5 w-full md:w-auto">
+
+          <!-- Choose your color title & swatches horizontally aligned -->
+          <div class="flex items-center gap-4">
+            <span class="text-white text-xs font-semibold tracking-wide select-none">
+              Choose your color
+            </span>
+
+            <!-- Swatches Container (Sapphire, Emerald, Terracotta, etc.) -->
+            <div id="swatchesContainer" class="swatches-scroller flex items-center gap-3.5" aria-label="Chair colors">
+              <!-- Dynamically populated by app.js -->
+            </div>
+          </div>
+
+          <!-- Consultation Card with Smiling Consultant Photo -->
+          <div class="consultation-card">
+            <div class="flex-1 pr-1">
+              <h4 class="font-bold text-slate-900 text-xs tracking-tight mb-2.5">
+                Get a Free Consultation
+              </h4>
+              <form id="consultationForm" class="flex flex-col gap-2">
+                <input id="consultEmail" 
+                       type="email" 
+                       required 
+                       placeholder="Enter your email" 
+                       class="border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 placeholder-slate-400 outline-none focus:border-blue-600 transition-colors w-full" />
+                <button type="submit" class="bg-[#153a92] hover:bg-[#102d75] text-white font-bold text-[10px] tracking-wider py-2 px-3.5 rounded-full flex items-center justify-center gap-2 transition-colors uppercase">
+                  <span>REQUEST A CALL</span>
+                  <span class="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[11px]">→</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- Consultant portrait image -->
+            <div class="consultant-avatar-wrap">
+              <img src="./Images/consultant.png?v=2" alt="Design Consultant" />
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    <!-- END HERO CARD -->
+
+    <!-- EXTENDED SHOWCASE SECTION (Below the fold) -->
+    <section id="collectionSection" class="mt-16 mb-24 px-4 md:px-8">
+
+      <!-- Section Title -->
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">The Palette & Geometry</span>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+            Complete 8-Piece Collection
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-slate-500 max-w-md">
+          Explore all 8 curated shades of the Forma sculptural armchair. Click any variant to load it into the 3D visualizer above.
+        </p>
+      </div>
+
+      <!-- 8-Chair Grid -->
+      <div id="catalogGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Injected dynamically by app.js -->
+      </div>
+
+      <!-- Architectural Dimensions & Specs Card -->
+      <div class="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 flex flex-col justify-center">
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">Technical Blueprint</span>
+          <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight mb-4">
+            Anatomical Form & Proportions
+          </h3>
+          <p class="text-xs md:text-sm text-slate-600 leading-relaxed mb-6">
+            Engineered through continuous structural radius bending. The continuous horseshoe arch combines armrests and backrest into a monolithic sculptural form.
+          </p>
+          
+          <div class="grid grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+              <span class="text-slate-400 block mb-0.5">Overall Width</span>
+              <span class="font-bold text-slate-800 text-sm">84 cm (33.1")</span>
+            </div>
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+              <span class="text-slate-400 block mb-0.5">Total Depth</span>
+              <span class="font-bold text-slate-800 text-sm">82 cm (32.3")</span>
+            </div>
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+              <span class="text-slate-400 block mb-0.5">Overall Height</span>
+              <span class="font-bold text-slate-800 text-sm">78 cm (30.7")</span>
+            </div>
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+              <span class="text-slate-400 block mb-0.5">Seat Height</span>
+              <span class="font-bold text-slate-800 text-sm">44 cm (17.3")</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-slate-900 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center justify-around gap-6 shadow-inner">
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center mb-3">
+              ✦
+            </div>
+            <h4 class="font-bold text-sm mb-1">Microfiber Velvet</h4>
+            <p class="text-[11px] text-slate-400 max-w-[180px]">100,000+ Martindale rub count with nano-repellent stain protection.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
+              🌲
+            </div>
+            <h4 class="font-bold text-sm mb-1">FSC Nordic Ash</h4>
+            <p class="text-[11px] text-slate-400 max-w-[180px]">Sustainably harvested kiln-dried timber with lifetime frame integrity.</p>
+          </div>
+          <div class="text-center">
+            <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3">
+              ✈️
+            </div>
+            <h4 class="font-bold text-sm mb-1">Global White-Glove</h4>
+            <p class="text-[11px] text-slate-400 max-w-[180px]">Delivered directly to your living space with full packaging removal.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ABOUT US & CRAFTSMANSHIP SECTION -->
+    <section id="about" class="mt-8 mb-24 px-4 md:px-8 max-w-7xl mx-auto w-full">
+
+      <!-- Section Subtitle & Big Heading -->
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-2">Our Philosophy & Heritage</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Where Italian Sculptural Form Meets Nordic Simplicity.
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-slate-600 max-w-md leading-relaxed">
+          Founded in 2015 across Milan, Copenhagen, and Tokyo, forma studio bridges the boundary between sculptural fine art and everyday ergonomic comfort.
+        </p>
+      </div>
+
+      <!-- Trust Metrics Ribbon (4 Columns) -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow text-center">
+          <span class="text-2xl md:text-4xl font-extrabold text-slate-900 block mb-1">2015</span>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Design Heritage</span>
+          <p class="text-[11px] text-slate-500">Founded across 3 global design capitals</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow text-center">
+          <span class="text-2xl md:text-4xl font-extrabold text-slate-900 block mb-1">10-Yr</span>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Frame Guarantee</span>
+          <p class="text-[11px] text-slate-500">Uncompromising structural beech & ash</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow text-center">
+          <span class="text-2xl md:text-4xl font-extrabold text-slate-900 block mb-1">100k+</span>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Rub Resistance</span>
+          <p class="text-[11px] text-slate-500">Heavy domestic & commercial durability</p>
+        </div>
+        <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-shadow text-center">
+          <span class="text-2xl md:text-4xl font-extrabold text-slate-900 block mb-1">40+</span>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Global Reach</span>
+          <p class="text-[11px] text-slate-500">White-glove in-room assembly delivery</p>
+        </div>
+      </div>
+
+      <!-- 3 Craftsmanship Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <!-- Pillar 1 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold mb-6">
+              01
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Continuous Radius Bending</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-6">
+              Every chair begins as straight-grain European timber, steam-bent through precision steel molds to produce our signature monolithic horseshoe contour with zero weak joints.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+            <span>Anatomical Support</span>
+            <span class="text-blue-600 font-bold">105° Lumbar Arch</span>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold mb-6">
+              02
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Italian Microfiber Velvet</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-6">
+              Sourced directly from historical textile mills in Como, Italy. Finished with non-toxic nano-coating that repels liquids while preserving rich tactile warmth and light-refracting nap.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+            <span>Certification</span>
+            <span class="text-emerald-600 font-bold">OEKO-TEX® 100</span>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold mb-6">
+              03
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3">FSC-Certified Timber</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-6">
+              We exclusively utilize kiln-dried Nordic ash and European beech from responsibly managed forests. For every armchair crafted, three trees are planted in European conservation reserves.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+            <span>Sustainability</span>
+            <span class="text-amber-600 font-bold">100% Carbon Neutral</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Director Note / Philosophy Statement -->
+      <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-[#102347] rounded-3xl p-8 md:p-14 text-white shadow-2xl relative overflow-hidden">
+        <!-- Subtle ambient radial highlight -->
+        <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="text-blue-400 text-3xl font-serif leading-none mb-4">“</div>
+          <blockquote class="text-lg md:text-2xl font-light leading-relaxed tracking-tight text-white/95 mb-8">
+            An armchair should not merely occupy space in an interior. It should command the room’s atmosphere, inviting tactile engagement and offering an enduring sanctuary of calm and architectural balance.
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 rounded-full bg-blue-600/30 border border-blue-400/40 flex items-center justify-center font-bold text-xs text-blue-300">
+              FS
+            </div>
+            <div>
+              <h4 class="font-bold text-sm text-white">Studio Forma Design Lab</h4>
+              <p class="text-[11px] text-slate-400">Milan & Copenhagen Atelier</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TEAM & DESIGN COLLECTIVE SECTION -->
+    <section id="team" class="mt-8 mb-24 px-4 md:px-8 max-w-7xl mx-auto w-full">
+
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-2">Master Artisans & Designers</span>
+          <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+            The Minds Behind forma studio
+          </h2>
+        </div>
+        <p class="text-xs md:text-sm text-slate-600 max-w-md leading-relaxed">
+          An international collective of master cabinetmakers, structural architects, and ergonomic engineers uniting Milanese soul with Scandinavian craft.
+        </p>
+      </div>
+
+      <!-- Team Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Member 1: Elena Rossi -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-full aspect-[4/5] rounded-2xl bg-gradient-to-tr from-slate-900 via-slate-800 to-blue-950 mb-5 overflow-hidden relative flex items-center justify-center p-6 text-center">
+              <div class="absolute inset-0 bg-blue-600/10 mix-blend-overlay"></div>
+              <div class="relative z-10 flex flex-col items-center">
+                <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-lg group-hover:scale-110 transition-transform">
+                  ER
+                </div>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-blue-300 bg-blue-900/60 px-3 py-1 rounded-full border border-blue-400/30">
+                  Milan Atelier
+                </span>
+              </div>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg">Elena Rossi</h3>
+            <span class="text-xs text-blue-600 font-semibold block mb-2">Lead Structural Architect</span>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Pioneered the continuous radius horseshoe frame. Specializes in monolithic architectural silhouettes and anatomical lumbar support.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Tenure</span>
+            <span class="font-bold text-slate-700">Since Inception (2015)</span>
+          </div>
+        </div>
+
+        <!-- Member 2: Lars Lindqvist -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-full aspect-[4/5] rounded-2xl bg-gradient-to-tr from-slate-900 via-emerald-950 to-slate-800 mb-5 overflow-hidden relative flex items-center justify-center p-6 text-center">
+              <div class="absolute inset-0 bg-emerald-600/10 mix-blend-overlay"></div>
+              <div class="relative z-10 flex flex-col items-center">
+                <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-lg group-hover:scale-110 transition-transform">
+                  LL
+                </div>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-300 bg-emerald-900/60 px-3 py-1 rounded-full border border-emerald-400/30">
+                  Copenhagen Workshop
+                </span>
+              </div>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg">Lars Lindqvist</h3>
+            <span class="text-xs text-emerald-600 font-semibold block mb-2">Master Steam-Bending Artisan</span>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              3rd-generation Danish cabinetmaker overseeing the kiln-drying and thermal steam curves of Nordic ash with zero weak joints.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Specialty</span>
+            <span class="font-bold text-slate-700">Timber Curving</span>
+          </div>
+        </div>
+
+        <!-- Member 3: Kenji Takahashi -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-full aspect-[4/5] rounded-2xl bg-gradient-to-tr from-slate-900 via-amber-950 to-slate-800 mb-5 overflow-hidden relative flex items-center justify-center p-6 text-center">
+              <div class="absolute inset-0 bg-amber-600/10 mix-blend-overlay"></div>
+              <div class="relative z-10 flex flex-col items-center">
+                <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-2xl font-bold mb-3 shadow-lg group-hover:scale-110 transition-transform">
+                  KT
+                </div>
+                <span class="text-[10px] uppercase font-bold tracking-widest text-amber-300 bg-amber-900/60 px-3 py-1 rounded-full border border-amber-400/30">
+                  Tokyo Studio
+                </span>
+              </div>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg">Kenji Takahashi</h3>
+            <span class="text-xs text-amber-600 font-semibold block mb-2">Textile & Nano-Surface Specialist</span>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Engineered the nano-shield microfiber velvet treatment, balancing soft natural tactile friction with liquid-shedding resilience.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Innovation</span>
+            <span class="font-bold text-slate-700">Microfiber Weave</span>
+          </div>
+        </div>
+
+        <!-- Member 4: Sofia Al-Mansoor (With actual consultant.png avatar) -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="w-full aspect-[4/5] rounded-2xl bg-slate-100 mb-5 overflow-hidden relative">
+              <img src="./Images/consultant.png" alt="Sofia Al-Mansoor" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute top-3 right-3">
+                <span class="text-[10px] uppercase font-bold tracking-widest text-white bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                  Global Concierge
+                </span>
+              </div>
+            </div>
+            <h3 class="font-bold text-slate-900 text-lg">Sofia Al-Mansoor</h3>
+            <span class="text-xs text-blue-600 font-semibold block mb-2">Lead Spatial Consultant</span>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Directs private client acquisitions, custom palette consultations, and ensures flawless white-glove installations globally.
+            </p>
+          </div>
+          <div class="pt-4 mt-6 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+            <span>Client Rating</span>
+            <span class="font-bold text-amber-500">★ 4.98 / 5.0</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FAQS SECTION -->
+    <section id="faqs" class="mt-8 mb-24 px-4 md:px-8 max-w-5xl mx-auto w-full">
+
+      <!-- Section Title & Subheading -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-2">Clarity & Assistance</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-xs md:text-sm text-slate-500 mt-2">
+          Everything you need to know about our craftsmanship, white-glove logistics, custom upholstery, and guarantees.
+        </p>
+      </div>
+
+      <!-- Accordion Container -->
+      <div class="space-y-4">
+
+        <!-- Question 1 -->
+        <details class="faq-item group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all duration-200" open>
+          <summary class="flex items-center justify-between font-bold text-slate-900 text-sm md:text-base select-none">
+            <span>What is included in Global White-Glove Delivery?</span>
+            <span class="w-8 h-8 rounded-full bg-slate-100 group-open:bg-blue-600 group-open:text-white flex items-center justify-center text-slate-600 transition-colors ml-4 shrink-0 font-normal">
+              <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs md:text-[13px] text-slate-600 leading-relaxed">
+            Every chair is dispatched in custom impact-resistant timber crating. A specialized two-person white-glove team delivers directly to your room of choice, unpacks, conducts multi-point inspection, and positions the chair. All packing debris is removed and 100% recycled at zero additional charge.
+          </div>
+        </details>
+
+        <!-- Question 2 -->
+        <details class="faq-item group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-slate-900 text-sm md:text-base select-none">
+            <span>How do I clean and maintain the Italian Microfiber Velvet?</span>
+            <span class="w-8 h-8 rounded-full bg-slate-100 group-open:bg-blue-600 group-open:text-white flex items-center justify-center text-slate-600 transition-colors ml-4 shrink-0 font-normal">
+              <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs md:text-[13px] text-slate-600 leading-relaxed">
+            Our velvet is woven in Como, Italy, with a microscopic hydrophobic shield. Spills like coffee, wine, or water bead into droplets on the surface and can be blotted immediately with a dry cloth. For routine care, a gentle vacuum brush attachment or soft velvet lint brush preserves its rich dual-tone nap.
+          </div>
+        </details>
+
+        <!-- Question 3 -->
+        <details class="faq-item group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-slate-900 text-sm md:text-base select-none">
+            <span>What does the 10-Year Warranty cover?</span>
+            <span class="w-8 h-8 rounded-full bg-slate-100 group-open:bg-blue-600 group-open:text-white flex items-center justify-center text-slate-600 transition-colors ml-4 shrink-0 font-normal">
+              <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs md:text-[13px] text-slate-600 leading-relaxed">
+            We provide a 10-Year Structural Guarantee covering the solid kiln-dried European beech and ash timber frame, the internal structural steel reinforcement brackets, and the steam-bent arch against warping, sagging, or joint separation. The upholstery fabric carries a 2-year warranty against premature wear.
+          </div>
+        </details>
+
+        <!-- Question 4 -->
+        <details class="faq-item group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-slate-900 text-sm md:text-base select-none">
+            <span>Can I request physical fabric swatches before ordering?</span>
+            <span class="w-8 h-8 rounded-full bg-slate-100 group-open:bg-blue-600 group-open:text-white flex items-center justify-center text-slate-600 transition-colors ml-4 shrink-0 font-normal">
+              <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs md:text-[13px] text-slate-600 leading-relaxed">
+            Absolutely. We offer complimentary swatch boxes containing large samples of all 8 velvet colorways, delivered directly to your doorstep within 48 hours. This allows you to evaluate textures and tones under your home’s natural lighting conditions.
+          </div>
+        </details>
+
+        <!-- Question 5 -->
+        <details class="faq-item group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-slate-900 text-sm md:text-base select-none">
+            <span>What is your in-home trial and return policy?</span>
+            <span class="w-8 h-8 rounded-full bg-slate-100 group-open:bg-blue-600 group-open:text-white flex items-center justify-center text-slate-600 transition-colors ml-4 shrink-0 font-normal">
+              <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs md:text-[13px] text-slate-600 leading-relaxed">
+            We offer a risk-free 30-Day In-Home Trial. Experience the chair in your interior for a full month. If it does not completely harmonize with your space, contact our concierge to schedule a complimentary white-glove pickup for a 100% full refund with zero restocking fees.
+          </div>
+        </details>
+
+        <!-- Question 6 -->
+        <details class="faq-item group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 [&_summary::-webkit-details-marker]:hidden cursor-pointer transition-all duration-200">
+          <summary class="flex items-center justify-between font-bold text-slate-900 text-sm md:text-base select-none">
+            <span>What are the exact architectural dimensions & load limits?</span>
+            <span class="w-8 h-8 rounded-full bg-slate-100 group-open:bg-blue-600 group-open:text-white flex items-center justify-center text-slate-600 transition-colors ml-4 shrink-0 font-normal">
+              <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-4 pt-4 border-t border-slate-100 text-xs md:text-[13px] text-slate-600 leading-relaxed">
+            Overall Width: 84 cm (33.1") | Total Depth: 82 cm (32.3") | Total Height: 78 cm (30.7") | Seat Height: 44 cm (17.3"). The chair weighs 26 kg (57.3 lbs) and has been certified for dynamic load capacities up to 450 lbs (205 kg).
+          </div>
+        </details>
+
+      </div>
+
+      <!-- Quick Contact Prompt -->
+      <div class="mt-12 bg-slate-100/70 rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200/60">
+        <div class="text-center sm:text-left">
+          <h4 class="font-bold text-slate-900 text-sm">Have a bespoke question or need interior advice?</h4>
+          <p class="text-xs text-slate-500 mt-0.5">Our design consultants in Milan & Copenhagen are on call.</p>
+        </div>
+        <button onclick="document.getElementById('navContactBtn').click()" class="bg-slate-900 hover:bg-blue-600 text-white font-semibold text-xs px-6 py-3 rounded-full transition-colors shrink-0 shadow-sm">
+          Speak with a Consultant
+        </button>
+      </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-200 py-8 px-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-900">forma studio</span>
+        <span>— Milan / Copenhagen / Tokyo</span>
+      </div>
+      <div>
+        © 2026 forma studio All rights reserved. Handcrafted luxury furniture.
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- SPOTLIGHT SEARCH MODAL -->
+  <div id="searchModal" class="luxury-modal-overlay fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="luxury-modal-card-center bg-white rounded-3xl max-w-2xl w-full max-h-[82vh] flex flex-col shadow-2xl border border-slate-100 overflow-hidden relative">
+      
+      <!-- Search Input Header -->
+      <div class="p-5 md:p-6 border-b border-slate-100 flex items-center gap-3">
+        <div class="text-slate-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+        <input id="searchInput" 
+               type="text" 
+               autocomplete="off"
+               placeholder="Search collections, shades, materials, or FAQs..." 
+               class="flex-1 bg-transparent text-slate-900 text-sm md:text-base font-medium outline-none placeholder:text-slate-400" />
+        <span class="hidden sm:inline-block text-[10px] font-bold text-slate-400 border border-slate-200 rounded px-2 py-0.5 uppercase tracking-wider">
+          ESC
+        </span>
+        <button id="searchModalClose" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 font-bold transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <!-- Quick Trending Tags -->
+      <div class="px-6 py-3 bg-slate-50 border-b border-slate-100 flex items-center gap-2 overflow-x-auto text-xs">
+        <span class="text-slate-400 font-semibold text-[11px] shrink-0">Popular:</span>
+        <button class="search-tag-btn px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 hover:text-blue-600 text-slate-600 text-[11px] font-medium border border-slate-200 shrink-0 transition-colors" data-term="Sapphire">
+          ✦ Sapphire Blue
+        </button>
+        <button class="search-tag-btn px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 hover:text-blue-600 text-slate-600 text-[11px] font-medium border border-slate-200 shrink-0 transition-colors" data-term="Emerald">
+          ✦ Emerald Green
+        </button>
+        <button class="search-tag-btn px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 hover:text-blue-600 text-slate-600 text-[11px] font-medium border border-slate-200 shrink-0 transition-colors" data-term="Bouclé">
+          ✦ Ivory Bouclé
+        </button>
+        <button class="search-tag-btn px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 hover:text-blue-600 text-slate-600 text-[11px] font-medium border border-slate-200 shrink-0 transition-colors" data-term="Velvet">
+          ✦ Microfiber Velvet
+        </button>
+        <button class="search-tag-btn px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 hover:text-blue-600 text-slate-600 text-[11px] font-medium border border-slate-200 shrink-0 transition-colors" data-term="Delivery">
+          ✦ White-Glove Delivery
+        </button>
+        <button class="search-tag-btn px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 hover:text-blue-600 text-slate-600 text-[11px] font-medium border border-slate-200 shrink-0 transition-colors" data-term="Warranty">
+          ✦ 10-Yr Warranty
+        </button>
+      </div>
+
+      <!-- Results Body -->
+      <div id="searchResults" class="p-6 overflow-y-auto max-h-[55vh] divide-y divide-slate-100">
+        <!-- Injected dynamically by app.js -->
+      </div>
+
+      <!-- Footer Info -->
+      <div class="px-6 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
+        <span>Click any chair variant to visualize immediately in 3D</span>
+        <span>forma studio search</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ALL COLLECTIONS MODAL -->
+  <div id="collectionsModal" class="luxury-modal-overlay fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="luxury-modal-card-center bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 shadow-2xl relative border border-slate-100">
+      <button id="modalClose" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 font-bold transition-colors">
+        ✕
+      </button>
+      <div class="mb-6">
+        <h3 class="text-2xl font-bold text-slate-900">forma studio Master Collection</h3>
+        <p class="text-xs text-slate-500 mt-1">Select any armchair to immediately visualize in the main stage.</p>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <!-- Populated or linked -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOPPING BAG / CART SLIDE-OVER DRAWER -->
+  <div id="cartDrawer" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden justify-end transition-all">
+    <div class="bg-white max-w-md w-full h-full shadow-2xl p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
+      
+      <!-- Drawer Header -->
+      <div>
+        <div class="flex items-center justify-between pb-5 border-b border-slate-100">
+          <div class="flex items-center gap-2.5">
+            <span class="text-xl">🛍️</span>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg">Your Bespoke Selection</h3>
+              <span id="cartHeaderCount" class="text-xs text-slate-400">1 Item in Bag</span>
+            </div>
+          </div>
+          <button id="cartCloseBtn" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 font-bold transition-colors">
+            ✕
+          </button>
+        </div>
+
+        <!-- Selected Item Card -->
+        <div class="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-100 flex gap-4 items-center">
+          <div id="cartItemImgWrap" class="w-20 h-20 rounded-xl p-2 flex items-center justify-center relative border border-slate-200/60 shadow-sm shrink-0" style="background: radial-gradient(ellipse at 50% 50%, #205cd4 0%, #1545ad 45%, #0c2d78 100%);">
+            <img id="cartItemImg" src="./Images/Gemini_Generated_Image_wor6mawor6mawor6.png" alt="Velvet Sapphire" class="w-full h-full object-contain drop-shadow" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <h4 id="cartItemName" class="font-bold text-slate-900 text-sm truncate">Velvet Sapphire</h4>
+              <span id="cartItemPrice" class="font-extrabold text-slate-900 text-sm">$1,450</span>
+            </div>
+            <div class="flex items-center gap-2 mb-2">
+              <span id="cartItemSwatch" class="w-2.5 h-2.5 rounded-full" style="background-color: #1a4dc4"></span>
+              <span id="cartItemCategory" class="text-xs text-slate-500">Lounge Chair</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase tracking-wider font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                In Stock & Ready
+              </span>
+              <!-- Quantity Selector -->
+              <div class="flex items-center border border-slate-200 rounded-lg bg-white overflow-hidden text-xs">
+                <button id="cartQtyMinus" class="px-2 py-0.5 hover:bg-slate-100 text-slate-600 font-bold">-</button>
+                <span id="cartQtyVal" class="px-2 font-semibold text-slate-800">1</span>
+                <button id="cartQtyPlus" class="px-2 py-0.5 hover:bg-slate-100 text-slate-600 font-bold">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Complimentary Services Included -->
+        <div class="mt-6 space-y-2.5 text-xs text-slate-600">
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">✓</span>
+            <span>Complimentary Global White-Glove Room Delivery ($0)</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs font-bold">✓</span>
+            <span>10-Year Structural Frame Guarantee</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-5 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xs font-bold">✓</span>
+            <span>30-Day Risk-Free In-Home Trial</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Footer & Checkout -->
+      <div class="pt-6 border-t border-slate-100 mt-6">
+        <div class="space-y-2 mb-4 text-xs">
+          <div class="flex justify-between text-slate-500">
+            <span>Subtotal</span>
+            <span id="cartSubtotal" class="font-bold text-slate-900">$1,450</span>
+          </div>
+          <div class="flex justify-between text-slate-500">
+            <span>White-Glove Shipping</span>
+            <span class="font-bold text-emerald-600">FREE</span>
+          </div>
+          <div class="flex justify-between text-slate-500">
+            <span>Estimated Taxes</span>
+            <span class="font-bold text-slate-900">Calculated at Checkout</span>
+          </div>
+          <div class="flex justify-between text-sm font-extrabold text-slate-900 pt-2 border-t border-slate-100">
+            <span>Total</span>
+            <span id="cartTotal" class="text-base text-blue-600">$1,450</span>
+          </div>
+        </div>
+
+        <a id="checkoutBtn" href="./cart.html" class="w-full py-3.5 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-lg flex items-center justify-center gap-2">
+          <span>PROCEED TO FULL CART & CHECKOUT</span>
+          <span>→</span>
+        </a>
+
+        <a href="./cart.html" class="block text-center text-xs text-slate-500 hover:text-blue-600 font-semibold mt-2.5 transition-colors">
+          View full-page cart & breakdown ↗
+        </a>
+
+        <p class="text-center text-[10px] text-slate-400 mt-3">
+          Encrypted 256-bit checkout • Concierge support 24/7
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LUXURY CONTACT & CONCIERGE MODAL -->
+  <div id="contactModal" class="luxury-modal-overlay fixed inset-0 bg-slate-950/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="luxury-modal-card-center bg-white rounded-3xl max-w-lg w-full max-h-[92vh] overflow-y-auto p-6 md:p-8 shadow-2xl relative border border-slate-100">
+      
+      <button id="contactModalClose" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-700 font-bold transition-colors">
+        ✕
+      </button>
+
+      <!-- Modal Header -->
+      <div class="mb-6">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest block mb-1">Direct Concierge</span>
+        <h3 class="text-2xl font-extrabold text-slate-900 tracking-tight">Connect with forma studio</h3>
+        <p class="text-xs text-slate-500 mt-1">Direct communication with our design labs & private client advisors.</p>
+      </div>
+
+      <!-- 2 Quick Direct Contact Channels -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+        <a href="tel:+390287391200" class="p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200/80 flex items-center gap-3 transition-colors group">
+          <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm shadow-md shrink-0">
+            📞
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Milan Atelier</span>
+            <span class="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">+39 02 8739 1200</span>
+          </div>
+        </a>
+
+        <a href="mailto:concierge@formastudio.design" class="p-4 rounded-2xl bg-slate-50 hover:bg-blue-50/50 border border-slate-200/80 flex items-center gap-3 transition-colors group">
+          <div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center text-sm shadow-md shrink-0">
+            ✉️
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold text-slate-400 block">Private Concierge</span>
+            <span class="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors truncate block">concierge@forma.design</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Callback Form -->
+      <div class="p-5 rounded-2xl bg-slate-50 border border-slate-100 mb-6">
+        <h4 class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-2">Request Priority Callback</h4>
+        <p class="text-[11px] text-slate-500 mb-3.5">Leave your details and an atelier consultant will connect within 15 minutes.</p>
+        
+        <form id="directCallbackForm" class="space-y-3">
+          <input id="cbName" type="text" required placeholder="Your Full Name" class="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <input id="cbContact" type="text" required placeholder="Phone or Email" class="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2 text-xs text-slate-800 placeholder:text-slate-400 outline-none focus:border-blue-600 transition-colors" />
+            <select id="cbAtelier" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 outline-none focus:border-blue-600 transition-colors">
+              <option value="Milan">Milan Lab (English/Italian)</option>
+              <option value="Copenhagen">Copenhagen (English/Danish)</option>
+              <option value="Tokyo">Tokyo (English/Japanese)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="w-full py-2.5 rounded-xl bg-[#153a92] hover:bg-[#102d75] text-white font-bold text-xs uppercase tracking-wider transition-colors shadow flex items-center justify-center gap-2">
+            <span>REQUEST DIRECT CALLBACK</span>
+            <span>→</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Atelier Locations -->
+      <div>
+        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Global Studio Locations</span>
+        <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-600">
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-100 text-center">
+            <span class="font-bold block text-slate-900">Milan</span>
+            <span class="text-[10px] text-slate-400">Via Monte Napoleone 8</span>
+          </div>
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-100 text-center">
+            <span class="font-bold block text-slate-900">Copenhagen</span>
+            <span class="text-[10px] text-slate-400">Bredgade 24</span>
+          </div>
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-100 text-center">
+            <span class="font-bold block text-slate-900">Tokyo</span>
+            <span class="text-[10px] text-slate-400">Minami-Aoyama 5-7</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Three.js CDN for WebGL 3D mode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="./js/chair-data.js"></script>
+  <script src="./js/three-scene.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
